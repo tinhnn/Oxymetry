@@ -1,0 +1,36 @@
+﻿<Window x:Class="OxymetryApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OxymetryApp"
+        mc:Ignorable="d"
+        Title="Oxymetry" Height="854" Width="480" Background="#FF498DE8">
+    <Grid>
+        <Ellipse Width="300" Height="300" Fill="#498DE8" Stroke="White" StrokeThickness="5" Margin="0,-350,0,0" />
+        <Label x:Name="lbl_SpO2" Content="SpO2" HorizontalAlignment="Center" Margin="0,320,0,0" VerticalAlignment="Top" Foreground="White" Width="107" FontFamily="Arial" FontSize="35" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lbl_SpO2_up" Content="100" HorizontalAlignment="Center" Margin="0,193,0,0" VerticalAlignment="Top" Foreground="White" Width="186" FontFamily="Arial" FontSize="80" HorizontalContentAlignment="Center"/>
+        <Border BorderBrush="#00498DE8" BorderThickness="1" HorizontalAlignment="Left" Height="12" Margin="42,448,0,0" VerticalAlignment="Top" Width="405">
+            <Border.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="White" Offset="0.307"/>
+                    <GradientStop Color="#FF498DE8" Offset="0.99"/>
+                </RadialGradientBrush>
+            </Border.Background>
+        </Border>
+        <Border BorderBrush="#00498DE8" BorderThickness="1" HorizontalAlignment="Left" Height="12" Margin="42,642,0,0" VerticalAlignment="Top" Width="405">
+            <Border.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="White" Offset="0.307"/>
+                    <GradientStop Color="#FF498DE8" Offset="0.99"/>
+                </RadialGradientBrush>
+            </Border.Background>
+        </Border>
+        <Label x:Name="label_Copy1" Content="HR" HorizontalAlignment="Left" Margin="208,583,0,0" VerticalAlignment="Top" Foreground="White" Width="73" FontFamily="Arial" FontSize="20" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label_Copy2" Content="SpO2" HorizontalAlignment="Left" Margin="42,583,0,0" VerticalAlignment="Top" Foreground="White" Width="73" FontFamily="Arial" FontSize="20" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label_Copy3" Content="PI" HorizontalAlignment="Left" Margin="374,583,0,0" VerticalAlignment="Top" Foreground="White" Width="73" FontFamily="Arial" FontSize="20" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lbl_SpO2_dn" Content="--" HorizontalAlignment="Left" Margin="42,517,0,0" VerticalAlignment="Top" Foreground="White" Width="73" FontFamily="Arial" FontSize="20" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lbl_HR" Content="--" HorizontalAlignment="Left" Margin="208,517,0,0" VerticalAlignment="Top" Foreground="White" Width="73" FontFamily="Arial" FontSize="20" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lbl_PI" Content="--" HorizontalAlignment="Left" Margin="374,517,0,0" VerticalAlignment="Top" Foreground="White" Width="73" FontFamily="Arial" FontSize="20" HorizontalContentAlignment="Center"/>
+    </Grid>
+</Window>
