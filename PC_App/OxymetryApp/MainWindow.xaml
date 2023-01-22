@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="Oxymetry" Height="854" Width="480" Background="#FF498DE8">
     <Grid>
+        <ContentControl MouseDoubleClick="ContentControl_MouseDoubleClick">
+            <Ellipse Width="20" Height="20" Fill="#498DE8" Stroke="White" Margin="0,750,0,0" />
+        </ContentControl>
         <Ellipse Width="300" Height="300" Fill="#498DE8" Stroke="White" StrokeThickness="5" Margin="0,-350,0,0" />
         <Label x:Name="lbl_SpO2" Content="SpO2" HorizontalAlignment="Center" Margin="0,320,0,0" VerticalAlignment="Top" Foreground="White" Width="107" FontFamily="Arial" FontSize="35" HorizontalContentAlignment="Center"/>
         <Label x:Name="lbl_SpO2_up" Content="100" HorizontalAlignment="Center" Margin="0,193,0,0" VerticalAlignment="Top" Foreground="White" Width="186" FontFamily="Arial" FontSize="80" HorizontalContentAlignment="Center"/>

@@ -35,9 +35,15 @@ namespace OxymetryApp
 
             _serialPort.DataReceived += new SerialDataReceivedEventHandler(rev_callback);
 
-            
-            _serialPort.Open();
-            _serialPort.DiscardInBuffer();
+            try
+            {
+                _serialPort.Open();
+                _serialPort.DiscardInBuffer();
+            }
+            catch(Exception ex)
+            {
+                // TODO
+            }
         }
 
         private void rev_callback(object sender, SerialDataReceivedEventArgs e)
@@ -66,32 +72,11 @@ namespace OxymetryApp
                 }
             }
         }
-        private async Task PeriodicFunc(Action ontick, TimeSpan duetime, TimeSpan interval, CancellationToken token)
-        {
-            if(duetime > TimeSpan.Zero)
-            {
-                await Task.Delay(duetime, token);
-            }
+        
 
-            while(!token.IsCancellationRequested)
-            {
-                ontick?.Invoke();
-                if(interval> TimeSpan.Zero)
-                {
-                    await Task.Delay(interval, token);
-                }
-            }
-        }
-        private void updateData()
+        private void ContentControl_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            lbl_SpO2_up.Content = _spo2_val;
-            lbl_SpO2_dn.Content = _spo2_val;
-            lbl_HR.Content = 70;
-
-            if (++_spo2_val > 100)
-            {
-                _spo2_val = 95;
-            }
+            open_uart();
         }
     }
 }
