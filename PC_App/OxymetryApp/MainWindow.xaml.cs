@@ -3,7 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.IO.Ports;
-
+using System.Windows.Controls;
+using System.Management;
+using System.Linq;
 
 namespace OxymetryApp
 {
@@ -14,6 +16,7 @@ namespace OxymetryApp
     {
         // Serial port
         private SerialPort _serialPort;
+        private string _PortName = "";
         private int _spo2_val = 95;
         private byte[] _RxBuffer = new byte[1024];
         private int _offset = 0;
@@ -23,13 +26,33 @@ namespace OxymetryApp
         public MainWindow()
         {
             InitializeComponent();
+            using (var searcher = new ManagementObjectSearcher
+                ("SELECT * FROM WIN32_SerialPort"))
+            {
+                string[] portnames = SerialPort.GetPortNames();
+                _PortName = portnames[0];
+
+                //var _ports = searcher.Get().Cast<ManagementBaseObject>().ToList();
+                //var tList = (from n in portnames
+                //             join p in _ports on n equals p["DeviceID"].ToString()
+                //             select n + " - " + p["Caption"]).ToList();
+                //int cnt = 0;
+                //foreach (var t in tList)
+                //{
+                //    if (t.Contains("STLink"))
+                //    {
+                //        break;
+                //    }
+                //    cnt++;
+                //}
+            }
             open_uart();
             //PeriodicFunc(updateData, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), CancellationToken.None);
         }
 
         private void open_uart()
         {
-            _serialPort = new SerialPort("COM5");
+            _serialPort = new SerialPort(_PortName);
             _serialPort.BaudRate = 115200;
             _serialPort.Parity = Parity.None;
             _serialPort.StopBits = StopBits.One;
