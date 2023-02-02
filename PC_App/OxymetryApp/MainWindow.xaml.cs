@@ -17,6 +17,8 @@ namespace OxymetryApp
         private int _spo2_val = 95;
         private byte[] _RxBuffer = new byte[1024];
         private int _offset = 0;
+        private int spo2 = 0;
+        private int hr = 0;
 
         public MainWindow()
         {
@@ -27,7 +29,7 @@ namespace OxymetryApp
 
         private void open_uart()
         {
-            _serialPort = new SerialPort("COM3");
+            _serialPort = new SerialPort("COM5");
             _serialPort.BaudRate = 115200;
             _serialPort.Parity = Parity.None;
             _serialPort.StopBits = StopBits.One;
@@ -49,27 +51,27 @@ namespace OxymetryApp
         private void rev_callback(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
-            int bytes = sp.Read(_RxBuffer, _offset, 8);
-            _offset += bytes;
-            if(_offset >= 8)
+            int bytes = sp.Read(_RxBuffer, 0, 8);
+            if (_RxBuffer[0] == 'S' && _RxBuffer[1] == '_')
             {
-                for(int i = 0; i < _offset-3; i++)
+                //if((spo2 == 0) || (Math.Abs(spo2 - _RxBuffer[i + 2]) < 10))
                 {
-                    if (_RxBuffer[i] == 'S' && _RxBuffer[i+1] == '_')
-                    {
-                        int spo2 = (int)_RxBuffer[i+2];
-                        int hr = (int)_RxBuffer[i+3];
-                        int PI = (int)_RxBuffer[i+4];
-                        App.Current.Dispatcher.Invoke(delegate
-                        {
-                            lbl_SpO2_up.Content = spo2;
-                            lbl_SpO2_dn.Content = spo2;
-                            lbl_HR.Content= hr;
-                            lbl_PI.Content = PI;
-                        });
-                        
-                    }
+                    spo2 = (int)_RxBuffer[2];
                 }
+                //if ((hr == 0) || (Math.Abs(hr - _RxBuffer[i + 3]) < 50))
+                {
+                    hr = (int)_RxBuffer[3];
+                }
+                            
+                int PI = (int)_RxBuffer[4];
+                App.Current.Dispatcher.Invoke(delegate
+                {
+                    lbl_SpO2_up.Content = spo2;
+                    lbl_SpO2_dn.Content = spo2;
+                    lbl_HR.Content= hr;
+                    lbl_PI.Content = PI;
+                });
+                        
             }
         }
         

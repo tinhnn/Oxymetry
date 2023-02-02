@@ -1,0 +1,11 @@
+collapse/module.driver.basic_on_usb.1713600597=false
+collapse/module.driver.comms_i2c_on_comms_i2c_bus.307476441=false
+collapse/module.driver.comms_i2c_on_comms_i2c_device.507286533=false
+collapse/module.driver.comms_i2c_on_comms_i2c_device.857772338=false
+collapse/module.driver.i2c_on_iic_master.2046900443=false
+collapse/module.driver.ob1203_on_ob1203.1838663872=false
+collapse/module.driver.ob1203_on_ob1203.879086335=false
+collapse/module.driver.ob1203_ppg_mode_on_ob1203.340958357=false
+collapse/module.driver.ob1203_prox_mode_on_ob1203.993494238=false
+collapse/module.driver.pcdc_on_usb.934855274=false
+eclipse.preferences.version=1
