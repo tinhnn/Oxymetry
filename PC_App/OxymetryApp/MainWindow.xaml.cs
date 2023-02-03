@@ -26,48 +26,36 @@ namespace OxymetryApp
         public MainWindow()
         {
             InitializeComponent();
-            using (var searcher = new ManagementObjectSearcher
-                ("SELECT * FROM WIN32_SerialPort"))
-            {
-                string[] portnames = SerialPort.GetPortNames();
-                _PortName = portnames[0];
-
-                //var _ports = searcher.Get().Cast<ManagementBaseObject>().ToList();
-                //var tList = (from n in portnames
-                //             join p in _ports on n equals p["DeviceID"].ToString()
-                //             select n + " - " + p["Caption"]).ToList();
-                //int cnt = 0;
-                //foreach (var t in tList)
-                //{
-                //    if (t.Contains("STLink"))
-                //    {
-                //        break;
-                //    }
-                //    cnt++;
-                //}
-            }
             open_uart();
-            //PeriodicFunc(updateData, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), CancellationToken.None);
         }
 
         private void open_uart()
         {
-            _serialPort = new SerialPort(_PortName);
-            _serialPort.BaudRate = 115200;
-            _serialPort.Parity = Parity.None;
-            _serialPort.StopBits = StopBits.One;
-            _serialPort.DataBits = 8;
-
-            _serialPort.DataReceived += new SerialDataReceivedEventHandler(rev_callback);
-
-            try
+            using (var searcher = new ManagementObjectSearcher
+                ("SELECT * FROM WIN32_SerialPort"))
             {
-                _serialPort.Open();
-                _serialPort.DiscardInBuffer();
-            }
-            catch(Exception ex)
-            {
-                // TODO
+                string[] portnames = SerialPort.GetPortNames();
+                if (portnames.Length > 0)
+                {
+                    _PortName = portnames[0];
+                    _serialPort = new SerialPort(_PortName);
+                    _serialPort.BaudRate = 115200;
+                    _serialPort.Parity = Parity.None;
+                    _serialPort.StopBits = StopBits.One;
+                    _serialPort.DataBits = 8;
+
+                    _serialPort.DataReceived += new SerialDataReceivedEventHandler(rev_callback);
+
+                    try
+                    {
+                        _serialPort.Open();
+                        _serialPort.DiscardInBuffer();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
             }
         }
 
@@ -94,7 +82,6 @@ namespace OxymetryApp
                     lbl_HR.Content= hr;
                     lbl_PI.Content = PI;
                 });
-                        
             }
         }
         
